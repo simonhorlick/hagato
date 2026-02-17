@@ -179,7 +179,7 @@ pipelineBarrier
   -> Vk.PipelineStageFlags
   -> Vk.DependencyFlags
   -> V.Vector Vk.MemoryBarrier
-  -> V.Vector Vk.BufferMemoryBarrier
+  -> V.Vector (Vk.SomeStruct Vk.BufferMemoryBarrier)
   -> V.Vector (Vk.SomeStruct Vk.ImageMemoryBarrier)
   -> Eff es ()
 pipelineBarrier srcMask dstMask dependencyFlags memBarriers bufferMemBarriers imgBarriers = do
