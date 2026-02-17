@@ -108,7 +108,7 @@ library with-gltf
       src/hagato-gltf
   build-depends:
       aeson
-    , base64
+    , base64 < 1
     , binary
     , bytestring
     , containers
