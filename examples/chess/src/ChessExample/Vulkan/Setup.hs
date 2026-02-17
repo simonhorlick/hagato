@@ -66,6 +66,10 @@ manageRenderSetup window layers =
         setEngineName "Hagato"
         setEngineVersion 1 0 0
         enableVulkanExtensions extensions
+        -- ensure portability-capable ICDs such as MoltenVK are enumerated
+        -- and accepted
+        enableVulkanExtensions ["VK_KHR_portability_enumeration"]
+        setFlags Vk.INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR
         enableLayers layers
     -- pick a physical GPU device which:
     -- a) can render on the window surface
@@ -101,6 +105,7 @@ manageRenderSetup window layers =
     (device, [gQueue, pQueue, tQueue]) <-
       Hk.manageDevice physicalDevice $ do
         enableSwapchainSupport
+        enableDeviceExtensions ["VK_KHR_portability_subset"]
         enableFeatures12 indexing
         [gID] <- give graphicsQueue [1.0]
         [pID] <- give (presentQueue surface) [1.0]

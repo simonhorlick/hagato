@@ -6,6 +6,7 @@ module Hagato.Vulkan.Instance
   , setEngineName
   , setEngineVersion
   , setApiVersion
+  , setFlags
   , enableLayer
   , enableLayers
   , enableVulkanExtensions
@@ -75,6 +76,13 @@ setApiVersion major minor patch =
     -- little bit different from the others to disambiguate "apiVersion"
     \(Vk.ApplicationInfo n av en ev _) ->
       Vk.ApplicationInfo n av en ev (version major minor patch)
+
+setFlags :: Vk.InstanceCreateFlagBits -> InstanceBuilder ()
+setFlags flags =
+  InstanceBuilder $
+    modify $
+      \(Vk.InstanceCreateInfo next _ appInfo layers exts) ->
+        Vk.InstanceCreateInfo next flags appInfo layers exts
 
 enableLayer :: String -> InstanceBuilder ()
 enableLayer name = enableLayers [name]
