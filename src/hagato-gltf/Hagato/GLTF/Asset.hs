@@ -147,6 +147,10 @@ instance Index SamplerIx Asset Sampler where
   get i = get i . (.samplers)
   {-# INLINE get #-}
 
+instance Index SceneIx Asset Scene where
+  get i = get i . (.scenes)
+  {-# INLINE get #-}
+
 instance Index TextureIx Asset Texture where
   get i = get i . (.textures)
   {-# INLINE get #-}
