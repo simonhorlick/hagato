@@ -44,6 +44,7 @@ library with-core
       Hagato.Core.Animation.Float
       Hagato.Core.Animation.Vec3
       Hagato.Core.Camera
+      Hagato.Core.Collision
       Hagato.Core.Extra
       Hagato.Core.Input
       Hagato.Core.Log
