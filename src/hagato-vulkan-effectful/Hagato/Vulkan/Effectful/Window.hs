@@ -12,6 +12,7 @@ module Hagato.Vulkan.Effectful.Window
   , destroySurface
   , allocateSurface
   , manageSurface
+  , getFramebufferSize
   , resized
   , poll
   , tickPoll
@@ -92,6 +93,11 @@ allocateSurface window vk = do
 manageSurface :: (Window w :> es, Resource :> es) => w -> Vk.Instance -> Eff es Vk.SurfaceKHR
 manageSurface window vk =
   fst <$> allocateSurface window vk
+
+getFramebufferSize :: Window w :> es => w -> Eff es (Vk.WindowWidth, Vk.WindowHeight)
+getFramebufferSize window = do
+  Window strategy <- getStaticRep
+  unsafeEff_ $ Vk.getFramebufferSize strategy window
 
 resized :: Window w :> es => w -> Eff es Bool
 resized window = do

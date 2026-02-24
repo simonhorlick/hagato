@@ -80,6 +80,8 @@ glfwStrategy glfw =
             Right r -> pure $ Vk.SurfaceKHR r
       , _destroySurface = \_window vkInstance surface ->
           Vk.destroySurfaceKHR vkInstance surface Nothing
+        , _getFramebufferSize = \window ->
+          GLFW.getFramebufferSize window.handle
       , _resized = \window -> do
           unchanged <- isEmptyMVar window.resized
           pure $ not unchanged

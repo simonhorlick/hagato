@@ -24,6 +24,7 @@ data WindowStrategy w =
     , _getExtensions  :: w -> IO [String]
     , _createSurface  :: w -> Vk.Instance -> IO Vk.SurfaceKHR
     , _destroySurface :: w -> Vk.Instance -> Vk.SurfaceKHR -> IO ()
+    , _getFramebufferSize :: w -> IO (WindowWidth, WindowHeight)
     , _resized        :: w -> IO Bool
     , _poll           :: w -> IO Input
     }
@@ -68,6 +69,11 @@ withSurface strategy window vk f =
       ( strategy._createSurface window vk )
       ( strategy._destroySurface window vk )
       ( run . f )
+
+getFramebufferSize :: MonadIO m => WindowStrategy w -> w -> m (WindowWidth, WindowHeight)
+getFramebufferSize strategy window =
+  liftIO $
+    strategy._getFramebufferSize window
 
 resized :: MonadIO m => WindowStrategy w -> w -> m Bool
 resized strategy window =
