@@ -141,8 +141,8 @@ rayFromInverse (Vec2 x y) (Vec2 width height) invView invProj =
   where
     xNDC        = 2 * x / width - 1
     yNDC        = 2 * y / height - 1
-    originNDC   = Vec4 xNDC yNDC 0.25 1
-    targetNDC   = Vec4 xNDC yNDC 0.75 1
+    originNDC   = Vec4 xNDC yNDC 0.75 1
+    targetNDC   = Vec4 xNDC yNDC 0.25 1
     originWorld = invView `multiplyVector` invProj `multiplyVector` originNDC
     targetWorld = invView `multiplyVector` invProj `multiplyVector` targetNDC
     origin      = perspectiveDivide originWorld
