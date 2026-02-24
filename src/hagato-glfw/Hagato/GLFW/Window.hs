@@ -96,8 +96,8 @@ glfwStrategy glfw =
                 (fx,fy) <- GLFW.getFramebufferSize window.handle
                 let event = ResizeEvent (Vec2 (fromIntegral fx) (fromIntegral fy))
                 pure $ event : events
-          (cx,cy) <- GLFW.getCursorPos window.handle 
-          pure $ Input allEvents (Vec2 (realToFrac cx) (realToFrac cy))
+          cursor <- getFramebufferCursorPos window.handle
+          pure $ Input allEvents cursor
       }
   where
     peekPtr :: (Ptr a -> Ptr Word64 -> IO Int32) -> IO (Either Int32 Word64)
@@ -124,10 +124,10 @@ glfwStrategy glfw =
     
     mouseCallback :: IORef [Event] -> GLFW.MouseButtonCallback
     mouseCallback ref window button buttonState modifiers = do
-      (cx,cy) <- GLFW.getCursorPos window
+      cursor <- getFramebufferCursorPos window
       addEvent ref $
         MouseEvent
-          ( Vec2 (realToFrac cx) (realToFrac cy) )
+          ( cursor )
           ( hagatoButton )
           ( hagatoState )
           ( hagatoMods )
@@ -138,11 +138,24 @@ glfwStrategy glfw =
 
     scrollCallback :: IORef [Event] -> GLFW.ScrollCallback
     scrollCallback ref window x y = do
-      (cx,cy) <- GLFW.getCursorPos window
+      cursor <- getFramebufferCursorPos window
       addEvent ref $
         ScrollEvent
-          ( Vec2 (realToFrac cx) (realToFrac cy) )
+          cursor
           ( Vec2 (realToFrac x) (realToFrac y) )
+
+    -- | Convert cursor position from window coordinates to framebuffer coordinates.
+    getFramebufferCursorPos :: GLFW.Window -> IO Vec2
+    getFramebufferCursorPos window = do
+      (cx, cy) <- GLFW.getCursorPos window
+      (wx, wy) <- GLFW.getWindowSize window
+      (fx, fy) <- GLFW.getFramebufferSize window
+      let
+        windowW = max 1 (fromIntegral wx :: Float)
+        windowH = max 1 (fromIntegral wy :: Float)
+        scaleX  = (fromIntegral fx :: Float) / windowW
+        scaleY  = (fromIntegral fy :: Float) / windowH
+      pure $ Vec2 (realToFrac cx * scaleX) (realToFrac cy * scaleY)
     
     sizeCallback :: MVar () -> GLFW.FramebufferSizeCallback
     sizeCallback var _window _width _height =
