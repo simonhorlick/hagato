@@ -53,6 +53,9 @@ import Data.ByteString.Lazy qualified as BL
 -- containers
 import Data.Map.Strict qualified as M
 
+-- filepath
+import System.FilePath (takeDirectory)
+
 -- text
 import Data.Text qualified as T
 
@@ -116,7 +119,7 @@ parseSource source =
         pure $ parse Nothing bytes
       FromFile file -> do
         bytes <- BL.readFile file
-        pure $ parse (Just file) bytes
+        pure $ parse (Just (takeDirectory file)) bytes
 
 -- | A pure version of 'parseSource'.
 parse
