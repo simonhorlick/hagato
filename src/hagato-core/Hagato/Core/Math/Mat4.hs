@@ -18,6 +18,7 @@ module Hagato.Core.Math.Mat4
   , fromRotation
   , fromScale
   , fromTRS
+  , identity
     -- * Matrix Inspection
   , toTranslation
   , toRotation
@@ -81,6 +82,13 @@ columnMajor
         m31 m32 m33 m34
         m41 m42 m43 m44
 {-# INLINE columnMajor #-}
+
+identity :: Mat4
+identity = columnMajor
+  1 0 0 0
+  0 1 0 0
+  0 0 1 0
+  0 0 0 1
 
 -- | Multiplies two matrices.
 multiply :: Mat4 -> Mat4 -> Mat4
