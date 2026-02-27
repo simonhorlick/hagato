@@ -20,11 +20,12 @@ import Control.Monad.IO.Unlift (MonadUnliftIO, withRunInIO)
 -- vulkan
 import Vulkan               qualified as Vk
 import Vulkan.Core10.Shader hiding (createShaderModule, destroyShaderModule, withShaderModule)
+import Vulkan.Core10.Shader qualified as Shader
 import Vulkan.Zero          qualified as Vk
 
 createShaderModule :: MonadIO m => Vk.Device -> BS.ByteString -> m Vk.ShaderModule
 createShaderModule device bytes =
-  Vk.createShaderModule device (Vk.zero { Vk.code = bytes }) Nothing
+  Vk.createShaderModule device (Vk.zero { Shader.code = bytes }) Nothing
 
 destroyShaderModule :: MonadIO m => Vk.Device -> Vk.ShaderModule -> m ()
 destroyShaderModule device shader =
