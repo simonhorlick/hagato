@@ -19,7 +19,7 @@ import Data.Aeson (FromJSON)
 import Control.Monad.IO.Class (MonadIO, liftIO)
 
 -- base64
-import Data.ByteString.Base64 (decodeBase64)
+import Data.ByteString.Base64 (decodeBase64Untyped)
 
 -- bytestring
 import Data.ByteString qualified as BS
@@ -44,7 +44,7 @@ load ctx (URI uri) =
       (_, "") ->
         fail $ "URI " ++ T.unpack uri ++ " is invalid."
       (_, payload) ->
-        case decodeBase64 $ T.encodeUtf8 (T.drop 8 payload) of
+        case decodeBase64Untyped $ T.encodeUtf8 (T.drop 8 payload) of
           Right bs -> pure bs
           Left err -> fail $ T.unpack uri ++ ": " ++ T.unpack err
   else
