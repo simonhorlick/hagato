@@ -15,6 +15,7 @@ module Hagato.Vulkan.Camera
   , inverseFromProjection
   , ray
   , rayFromInverse
+  , orthographic
   ) where
 
 -- hagato:with-core
