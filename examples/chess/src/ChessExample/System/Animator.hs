@@ -11,7 +11,7 @@ import Effectful (Eff, (:>))
 
 -- hagato:with-core
 import Hagato.Core.Animation (Animation(done, value), step)
-import Hagato.Core.Camera    (approach, position)
+import Hagato.Core.Camera    (Camera(position), approach)
 import Hagato.Core.Math.Vec3 (length)
 
 import ChessExample.Component.Animation (FadeOut(FadeOut), Forward(Forward), Path(Path))

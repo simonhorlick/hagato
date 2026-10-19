@@ -8,7 +8,7 @@ import Control.Monad (forM_)
 
 -- chessica
 import Chess                   (Game, spawnCommands)
-import Chess.Rulebook          (newGame)
+import Chess.Rulebook          (Rulebook(newGame))
 import Chess.Rulebook.Standard (standardRulebook)
 
 -- effectful-core

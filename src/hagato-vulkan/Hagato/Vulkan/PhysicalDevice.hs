@@ -213,7 +213,7 @@ getPhysicalDevice vkInstance builder =
 getDeviceName :: MonadIO m => Vk.PhysicalDevice -> m String
 getDeviceName physicalDevice = do
   props <- Vk.getPhysicalDeviceProperties physicalDevice
-  pure $ BS.unpack (Vk.deviceName props)
+  pure $ BS.unpack props.deviceName
 
 getMaxSampleCount :: MonadIO m => Vk.PhysicalDevice -> m Vk.SampleCountFlagBits
 getMaxSampleCount physicalDevice = do

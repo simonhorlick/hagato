@@ -63,14 +63,14 @@ import Data.Text qualified as T
 import Data.Vector qualified as V
 
 import Hagato.GLTF.Accessor   qualified as A
-import Hagato.GLTF.Asset      (Asset, getAsset, nodes)
-import Hagato.GLTF.Buffer     (Buffer, uri)
+import Hagato.GLTF.Asset      (Asset(nodes), getAsset)
+import Hagato.GLTF.Buffer     (Buffer(uri))
 import Hagato.GLTF.BufferView qualified as V
 import Hagato.GLTF.Chunk      (getChunks)
 import Hagato.GLTF.Header     (Header, getHeader)
 import Hagato.GLTF.Image      (Image(imageData), ImageData(..))
 import Hagato.GLTF.Index      (AccessorIx, BufferIx, BufferViewIx, Index, get)
-import Hagato.GLTF.Node       (Node, name)
+import Hagato.GLTF.Node       (Node(name))
 import Hagato.GLTF.URI        qualified as URI
 
 -- | Represents a glTF transmission, which is usually provided as a glTF file.

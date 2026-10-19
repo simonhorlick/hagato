@@ -8,12 +8,12 @@ import Apecs.Effectful (ECS)
 import Control.Monad (foldM)
 
 -- chessica
-import Chess                   (Update(Update), lastUpdate, undo)
+import Chess                   (Game(lastUpdate), Update(Update), undo)
 import Chess.Rulebook.Standard (standardRulebook)
 
 -- hagato:with-core
 import Hagato.Core.Input
-import Hagato.Core.Math.Vec2 (y)
+import Hagato.Core.Math.Vec2 (Vec2(y))
 
 -- effectful-core
 import Effectful (Eff, (:>))
